@@ -128,9 +128,21 @@ join vendas_produtos vp on vp.pro_id = p.pro_id
 where p.pro_categoria = "Informática";
 
 #17-Qual foi o total de unidades de produtos vendidos em todas as vendas juntas?
+select sum(vp_quantidade) from vendas_produtos;
 
 #18-Qual foi o valor total de vendas realizadas em setembro de 2025?
+select count(ven_id) from vendas
+where ven_data between '2025-09-01' and '2025-09-30';
 
 #19-Qual foi o valor total de vendas realizadas para clientes da cidade de São Paulo?
+select sum(vp.vp_quantidade * p.pro_preco) as ValorTotalSP from vendas v
+join clientes c on c.cli_id = v.cli_id
+join vendas_produtos vp on v.ven_id = vp.ven_id
+join produtos p on vp.pro_id = p.pro_id
+where c.cli_cidade = "São Paulo";
 
 #20-Qual é o preço médio dos produtos que já foram vendidos pelo menos uma vez?
+select round(avg(pro_preco), 2)
+from produtos 
+where pro_id in (select distinct pro_id from vendas_produtos);
+
