@@ -111,10 +111,21 @@ join produtos p on p.pro_id = vp.pro_id
 where c.cli_nome = 'Ana Silva';
 
 #14-Qual foi o produto mais caro já vendido em alguma compra?
+select p.pro_nome, p.pro_preco as ProdutoMaisCaroVendido from produtos p
+join vendas_produtos vp on vp.pro_id = p.pro_id
+order by p.pro_preco desc
+limit 1;
 
 #15-Qual foi o produto mais barato já vendido em alguma compra?
+select p.pro_nome, p.pro_preco as ProdutoMaisBaratoVendido from produtos p
+join vendas_produtos vp on vp.pro_id = p.pro_id
+order by p.pro_preco asc
+limit 1;
 
 #16-Qual é o valor total gasto apenas em produtos da categoria "Informática"?
+select sum(p.pro_preco * vp_quantidade) from produtos p
+join vendas_produtos vp on vp.pro_id = p.pro_id
+where p.pro_categoria = "Informática";
 
 #17-Qual foi o total de unidades de produtos vendidos em todas as vendas juntas?
 
@@ -123,4 +134,3 @@ where c.cli_nome = 'Ana Silva';
 #19-Qual foi o valor total de vendas realizadas para clientes da cidade de São Paulo?
 
 #20-Qual é o preço médio dos produtos que já foram vendidos pelo menos uma vez?
-
